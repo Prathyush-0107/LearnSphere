@@ -2,8 +2,120 @@
 BUILD SECURE 24 — PROMPT & ENGINEERING ACTIVITY LOG
 ================================================================================
 Repository: Build Secure 24 Participant Starter
+Project: LearnSphere
+Team ID: 5
+Team: Byte
 Log Format: UTF-8 Plain Text
-Lifecycle: Append-Only (Maintained autonomously by AI Agent)
-Timeline: ISO-8601 with local timezone offset
+Lifecycle: Append-Only
 ================================================================================
 
+IMPORTANT NOTE:
+This log records factual engineering activity from the project session.
+It does not fabricate missing prompts or AI responses.
+
+================================================================================
+2026-10-05 — REPOSITORY SETUP
+================================================================================
+
+Action:
+Configured the hackathon repository for the LearnSphere project.
+
+Actions:
+- Configured team metadata.
+- Connected the project to the LearnSphere GitHub repository.
+- Configured the required project structure.
+
+Commit:
+10e3a35 Add team metadata
+
+================================================================================
+2026-10-05 — REPOSITORY CONFLICT RESOLUTION
+================================================================================
+
+Action:
+Resolved the README conflict after synchronizing the local repository with
+the remote repository.
+
+Actions:
+- Resolved README.md.
+- Staged the resolved file.
+- Created the repository setup commit.
+
+Commit:
+d469675 Resolve repository setup
+
+================================================================================
+2026-10-05 — LEARNSPHERE FRONTEND IMPLEMENTATION
+================================================================================
+
+Action:
+Implemented the LearnSphere frontend MVP.
+
+Main functionality:
+- Student dashboard.
+- Courses.
+- Assessments.
+- AI Assistant.
+- Security Center.
+- Instructor Dashboard.
+- Administrator Dashboard.
+- Role-specific navigation.
+- Responsive blue/indigo/purple visual design.
+
+File:
+src/index.html
+
+Commit:
+f81c664 Finalize LearnSphere frontend
+
+================================================================================
+2026-10-05 — REPOSITORY VERIFICATION
+================================================================================
+
+Action:
+Verified the final application commit and repository contents.
+
+Verification:
+- git status
+- git show f81c664 --stat
+- repository file listing
+- recent git history
+
+Result:
+The working tree was verified and the remote branch was synchronized.
+
+================================================================================
+2026-10-05 — SUBMISSION METADATA
+================================================================================
+
+Action:
+Updated metadata/submission.yaml with:
+- Team ID: 5
+- LearnSphere GitHub repository.
+- Application commit reference: f81c664.
+- Empty deployment URL because the MVP was not deployed.
+
+Commit:
+542a34b Finalize submission metadata
+
+================================================================================
+2026-10-05 — DOCUMENTATION FINALIZATION
+================================================================================
+
+Action:
+Updated the project approach documentation with:
+- Problem understanding.
+- Threat model.
+- Architecture.
+- Technology choices.
+- Security controls.
+- Implementation milestones.
+- Architecture decisions.
+- Testing strategy.
+- MVP limitations.
+
+Action:
+Reviewed the engineering activity log and recorded known project activity without
+inventing missing historical prompts or responses.
+
+================================================================================
