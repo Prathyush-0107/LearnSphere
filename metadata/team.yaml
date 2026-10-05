@@ -4,16 +4,16 @@
 # - If your team has 4 members: provide all 4 members.
 
 team:
-  team_id: ""
-  name: ""
-  repository: "" # URL of the newly created GitHub repository for this project
+  team_id: "5"
+  name: "Byte"
+  repository: "https://github.com/Prathyush-0107/LearnSphere" # URL of the newly created GitHub repository for this project
 
 members:
-  - name: ""
-    email: ""
-  - name: ""
-    email: ""
-  - name: ""
-    email: ""
-  - name: ""
-    email: ""
+  - name: "B Sainath"
+    email: " bodigesainathgoud@gmail.com"
+  - name: "B Sai Prathyush"
+    email: "saiprathyushbiraka@gmail.com"
+  - name: "B Ramcharan"
+    email: "ramcharanbolagani5@gmail.com"
+  - name: "A Sathwik"
+    email: "addenkisathwik008@gmail.com"
