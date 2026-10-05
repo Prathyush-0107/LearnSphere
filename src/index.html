@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LearnSphere | Secure Learning Platform</title>
+
+
+<style>
+:root{
+  --navy:#172554;
+  --indigo:#312e81;
+  --blue:#2563eb;
+  --violet:#7c3aed;
+  --light:#f5f7ff;
+  --text:#172554;
+  --muted:#64748b;
+  --border:#e2e8f0;
+  --white:#ffffff;
+  --shadow:0 12px 35px rgba(37,40,100,.10);
+  --shadow-lg:0 22px 55px rgba(37,40,100,.16);
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Segoe UI,Arial,sans-serif}
+html{scroll-behavior:smooth}
+body{background:linear-gradient(135deg,#f8faff,#eef2ff);color:var(--text);min-height:100vh}
+button{cursor:pointer;border:0;font:inherit;transition:.2s ease}
+button:active{transform:scale(.98)}
+.login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:25px;position:relative;overflow:hidden;background:radial-gradient(circle at 15% 20%,rgba(124,58,237,.35),transparent 32%),radial-gradient(circle at 85% 80%,rgba(37,99,235,.35),transparent 35%),linear-gradient(135deg,#172554,#312e81 50%,#2563eb)}
+.login-page:before,.login-page:after{content:"";position:absolute;border-radius:50%;filter:blur(2px);opacity:.18}
+.login-page:before{width:360px;height:360px;border:70px solid #fff;top:-170px;right:-100px}
+.login-page:after{width:300px;height:300px;border:55px solid #fff;bottom:-170px;left:-100px}
+.login-card{position:relative;z-index:1;width:420px;max-width:100%;background:rgba(255,255,255,.97);padding:42px;border-radius:24px;box-shadow:0 30px 80px rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.7)}
+.logo{font-size:30px;font-weight:800;letter-spacing:-.7px;color:var(--indigo);margin-bottom:7px}
+.logo:before{content:"◈";color:var(--blue);margin-right:8px}
+.subtitle{color:var(--muted);margin-bottom:27px;line-height:1.5}
+label{display:block;margin:15px 0 7px;font-weight:700;font-size:13px;color:#334155}
+input,select{width:100%;padding:13px 14px;border:1px solid #d7def0;border-radius:11px;background:#fbfcff;color:var(--text);outline:none;transition:.2s}
+input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(37,99,235,.10);background:#fff}
+.primary{width:100%;margin-top:22px;padding:14px;background:linear-gradient(135deg,var(--blue),var(--indigo),var(--violet));color:#fff;border-radius:11px;font-weight:800;box-shadow:0 9px 20px rgba(79,70,229,.25)}
+.primary:hover,.small-btn:hover{transform:translateY(-2px);box-shadow:0 12px 25px rgba(79,70,229,.25)}
+.demo-note{margin-top:18px;padding:12px 14px;background:linear-gradient(135deg,#eef2ff,#eff6ff);border:1px solid #dbeafe;border-radius:10px;color:#3730a3;font-size:13px}
+.app{display:none;min-height:100vh}
+.sidebar{position:fixed;z-index:10;width:245px;height:100vh;background:linear-gradient(180deg,#111b46 0%,#312e81 52%,#1e1b4b 100%);color:#fff;padding:25px 14px;box-shadow:8px 0 30px rgba(23,37,84,.15);overflow-y:auto}
+.sidebar:after{content:"";position:absolute;width:170px;height:170px;border-radius:50%;background:rgba(124,58,237,.18);filter:blur(35px);right:-90px;bottom:80px}
+.sidebar .logo{color:#fff;padding:0 12px 30px;position:relative;z-index:1}
+.sidebar .logo:before{color:#93c5fd}
+.nav-btn{position:relative;z-index:1;width:100%;background:transparent;color:#cbd5e1;text-align:left;padding:13px 14px;border-radius:10px;margin-bottom:6px;font-weight:600}
+.nav-btn:hover{background:rgba(255,255,255,.10);color:#fff;transform:translateX(3px)}
+.nav-btn.active{background:linear-gradient(135deg,#2563eb,#4f46e5);color:#fff;box-shadow:0 8px 20px rgba(37,99,235,.28)}
+.main{margin-left:245px;padding:30px;max-width:1600px}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;gap:15px}
+.topbar h2{font-size:25px;letter-spacing:-.5px}
+.user{background:rgba(255,255,255,.9);padding:10px 16px;border-radius:30px;box-shadow:var(--shadow);border:1px solid #e8ebf5;font-weight:700;color:#334155}
+.page{display:none}.page.active{display:block;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.hero{position:relative;overflow:hidden;background:linear-gradient(120deg,#2563eb 0%,#4f46e5 52%,#7c3aed 100%);color:#fff;padding:32px;border-radius:20px;margin-bottom:25px;box-shadow:0 18px 40px rgba(49,46,129,.20)}
+.hero:after{content:"";position:absolute;width:220px;height:220px;border:45px solid rgba(255,255,255,.10);border-radius:50%;right:-70px;top:-100px}
+.hero h1,.hero p{position:relative;z-index:1}.hero h1{margin-bottom:8px;font-size:29px}.hero p{opacity:.9;line-height:1.5}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:25px}
+.stat{background:rgba(255,255,255,.95);padding:21px;border-radius:16px;box-shadow:var(--shadow);border:1px solid rgba(226,232,240,.8);transition:.2s}
+.stat:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.stat h2{color:var(--indigo);margin-top:8px;font-size:28px}.stat p{color:var(--muted);font-size:13px}
+.course-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.course{background:rgba(255,255,255,.97);padding:20px;border-radius:16px;box-shadow:var(--shadow);border:1px solid #e7eaf4;transition:.25s}
+.course:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+.course-icon{height:115px;border-radius:13px;background:linear-gradient(135deg,#dbeafe,#e0e7ff 55%,#ede9fe);display:flex;align-items:center;justify-content:center;font-size:44px;margin-bottom:16px}
+.course h3{margin-bottom:8px}.course p{color:var(--muted);font-size:14px;line-height:1.5;margin-bottom:16px}
+.small-btn{padding:10px 16px;border-radius:9px;background:linear-gradient(135deg,#2563eb,#4f46e5);color:#fff;font-weight:700}
+.green{background:linear-gradient(135deg,#16a34a,#059669)}
+.section{background:rgba(255,255,255,.97);padding:26px;border-radius:16px;margin-bottom:20px;box-shadow:var(--shadow);border:1px solid #e7eaf4}
+.section h3{margin-bottom:15px}
+.lesson{padding:15px 16px;border:1px solid var(--border);border-radius:10px;margin:10px 0;display:flex;justify-content:space-between;align-items:center;background:#fbfcff}
+.lesson:hover{border-color:#c7d2fe;background:#f8faff}
+.quiz-question{padding:20px 0;border-bottom:1px solid var(--border)}
+.quiz-question label{font-weight:normal;margin:9px 0;color:#475569}
+.result{text-align:center;padding:35px;background:linear-gradient(135deg,#ecfdf5,#f0fdf4);border:1px solid #bbf7d0;border-radius:14px}
+.ai-box{background:linear-gradient(135deg,#fff,#f5f3ff);border-radius:16px;padding:25px;border:1px solid #ddd6fe;box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}
+th,td{padding:13px 14px;text-align:left;border-bottom:1px solid #e2e8f0}th{background:#eef2ff;color:#312e81;font-size:13px}td{color:#475569}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-thumb{background:#818cf8;border-radius:10px}
+@media(max-width:1050px){.stats{grid-template-columns:repeat(2,1fr)}.course-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.sidebar{position:relative;width:100%;height:auto}.main{margin-left:0;padding:20px}.topbar{align-items:flex-start}.course-grid,.stats{grid-template-columns:1fr}.sidebar .logo{padding-bottom:18px}.login-card{padding:30px}}
+</style>
+
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div class="login-page" id="loginPage">
+  <div class="login-card">
+    <div class="logo">🎓 LearnSphere</div>
+    <div class="subtitle">Secure Learning & Assessment Platform</div>
+
+    <label>Email</label>
+    <input id="email" type="email" placeholder="student@example.com">
+
+    <label>Password</label>
+    <input id="password" type="password" placeholder="••••••••">
+
+    <label>Role</label>
+    <select id="role">
+      <option value="student">Student</option>
+      <option value="instructor">Instructor</option>
+      <option value="admin">Administrator</option>
+    </select>
+
+    <button class="primary" onclick="login()">Secure Login</button>
+
+    <div class="demo-note">
+      🔐 Demo authentication<br>
+      Role-based access control is demonstrated in this prototype.
+    </div>
+  </div>
+</div>
+
+<!-- APPLICATION -->
+<div class="app" id="app">
+
+  <aside class="sidebar">
+    <div class="logo">🎓 LearnSphere</div>
+
+    <button class="nav-btn active" onclick="showPage('dashboard', this)">
+      🏠 <span>Dashboard</span>
+    </button>
+
+    <button class="nav-btn" onclick="showPage('courses', this)">
+      📚 <span>Courses</span>
+    </button>
+
+    <button class="nav-btn" id="assessmentNav" onclick="showPage('quiz', this)">
+      📝 <span>Assessment</span>
+    </button>
+
+    <button class="nav-btn" id="assistantNav" onclick="showPage('assistant', this)">
+      🤖 <span>AI Assistant</span>
+    </button>
+
+    <button class="nav-btn" onclick="showPage('security', this)">
+      🔐 <span>Security</span>
+    </button>
+
+    <button class="nav-btn" id="instructorNav"
+            onclick="showPage('instructor', this)">
+      👨‍🏫 <span>Instructor</span>
+    </button>
+
+    <button class="nav-btn" id="adminNav"
+            onclick="showPage('admin', this)">
+      🛠️ <span>Administrator</span>
+    </button>
+
+    <button class="nav-btn" onclick="logout()">
+      🚪 <span>Logout</span>
+    </button>
+  </aside>
+
+  <main class="main">
+
+    <div class="topbar">
+      <div>
+        <h2 id="pageTitle">Student Dashboard</h2>
+        <p style="color:#64748b">Learn securely. Assess intelligently.</p>
+      </div>
+
+      <div class="user" id="userDisplay">
+        👤 Student
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <section class="page active" id="dashboard">
+
+      <div class="hero">
+        <h1>Welcome to LearnSphere 👋</h1>
+        <p>Your secure digital learning environment.</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <small>Enrolled Courses</small>
+          <h2>4</h2>
+        </div>
+
+        <div class="stat">
+          <small>Completed</small>
+          <h2>2</h2>
+        </div>
+
+        <div class="stat">
+          <small>Average Score</small>
+          <h2>86%</h2>
+        </div>
+
+        <div class="stat">
+          <small>Learning Streak</small>
+          <h2>12 🔥</h2>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Continue Learning</h2>
+        <br>
+
+        <div class="lesson">
+          <span>🔐 Cybersecurity Fundamentals</span>
+          <span class="badge">75% Complete</span>
+        </div>
+
+        <div class="lesson">
+          <span>💻 Web Development</span>
+          <span class="badge">40% Complete</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- COURSES -->
+    <section class="page" id="courses">
+
+      <div class="section">
+        <h2>Available Courses</h2>
+        <p style="color:#64748b;margin-top:5px">
+          Discover courses and enroll securely.
+        </p>
+      </div>
+
+      <div class="course-grid">
+
+        <div class="course">
+          <div class="course-icon">🔐</div>
+          <h3>Cybersecurity Fundamentals</h3>
+          <p>Learn authentication, encryption, threats and secure systems.</p>
+          <button class="small-btn green" onclick="enroll(this)">
+            Enroll
+          </button>
+        </div>
+
+        <div class="course">
+          <div class="course-icon">💻</div>
+          <h3>Web Development</h3>
+          <p>HTML, CSS, JavaScript and secure web application development.</p>
+          <button class="small-btn green" onclick="enroll(this)">
+            Enroll
+          </button>
+        </div>
+
+        <div class="course">
+          <div class="course-icon">🤖</div>
+          <h3>Artificial Intelligence</h3>
+          <p>Introduction to machine learning and intelligent systems.</p>
+          <button class="small-btn green" onclick="enroll(this)">
+            Enroll
+          </button>
+        </div>
+
+      </div>
+
+      <br>
+
+      <div class="section">
+        <h2>Course Content</h2>
+
+        <div class="lesson">
+          <span>▶ Module 1 — Introduction</span>
+          <span>Video</span>
+        </div>
+
+        <div class="lesson">
+          <span>📄 Module 2 — Learning Resources</span>
+          <span>PDF</span>
+        </div>
+
+        <div class="lesson">
+          <span>📝 Module 3 — Assessment</span>
+          <span>Quiz</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- QUIZ -->
+    <section class="page" id="quiz">
+
+      <div class="section">
+        <h2>Cybersecurity Assessment</h2>
+        <p style="color:#64748b">Test your understanding.</p>
+
+        <div class="quiz-question">
+          <strong>1. What is the primary purpose of authentication?</strong>
+
+          <label>
+            <input type="radio" name="q1" value="correct">
+            Verify the identity of a user
+          </label>
+
+          <label>
+            <input type="radio" name="q1">
+            Increase internet speed
+          </label>
+        </div>
+
+        <div class="quiz-question">
+          <strong>2. Which is a strong password practice?</strong>
+
+          <label>
+            <input type="radio" name="q2" value="correct">
+            Use unique passwords with multiple character types
+          </label>
+
+          <label>
+            <input type="radio" name="q2">
+            Use the same password everywhere
+          </label>
+        </div>
+
+        <div class="quiz-question">
+          <strong>3. What does HTTPS provide?</strong>
+
+          <label>
+            <input type="radio" name="q3" value="correct">
+            Encrypted communication
+          </label>
+
+          <label>
+            <input type="radio" name="q3">
+            Free internet access
+          </label>
+        </div>
+
+        <button class="primary" onclick="submitQuiz()">
+          Submit Assessment
+        </button>
+      </div>
+
+      <div id="quizResult"></div>
+
+    </section>
+
+    <!-- AI ASSISTANT -->
+    <section class="page" id="assistant">
+
+      <div class="ai-box">
+        <h2>🤖 LearnSphere AI Assistant</h2>
+
+        <p style="color:#64748b;margin:8px 0 20px">
+          Ask questions about your course material.
+        </p>
+
+        <div class="chat" id="chat">
+
+          <div class="message bot">
+            Hello! I'm your LearnSphere learning assistant.
+            Ask me about authentication, encryption, quizzes or course navigation.
+          </div>
+
+        </div>
+
+        <div class="chat-input">
+          <input id="question"
+                 placeholder="Ask a learning question..."
+                 onkeydown="if(event.key==='Enter') askAI()">
+
+          <button class="small-btn" onclick="askAI()">
+            Ask
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- SECURITY -->
+    <section class="page" id="security">
+
+      <div class="section">
+        <h2>🔐 LearnSphere Security Architecture</h2>
+        <p style="color:#64748b;margin:8px 0 20px">
+          Security is integrated into the platform design.
+        </p>
+
+        <div class="security">
+
+          <div class="security-card">
+            <h3>🔑 Authentication</h3>
+            <p>Secure login with password protection and session management.</p>
+          </div>
+
+          <div class="security-card">
+            <h3>👥 RBAC</h3>
+            <p>Student, Instructor and Administrator roles have separate privileges.</p>
+          </div>
+
+          <div class="security-card">
+            <h3>🛡️ Authorization</h3>
+            <p>Protected resources require valid user permissions.</p>
+          </div>
+
+          <div class="security-card">
+            <h3>✅ Input Validation</h3>
+            <p>User inputs and assessment submissions are validated.</p>
+          </div>
+
+          <div class="security-card">
+            <h3>📋 Audit Logging</h3>
+            <p>Important security and assessment actions can be logged.</p>
+          </div>
+
+          <div class="security-card">
+            <h3>🚫 Access Control</h3>
+            <p>Course content and results are accessible only to authorized users.</p>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ADMINISTRATOR -->
+    <section class="page" id="admin">
+
+      <div class="section">
+        <h2>🛠️ Administrator Dashboard</h2>
+        <p style="color:#64748b">
+          Manage platform users, courses and security activity.
+        </p>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <small>Total Users</small>
+          <h2>1,248</h2>
+        </div>
+        <div class="stat">
+          <small>Active Courses</small>
+          <h2>32</h2>
+        </div>
+        <div class="stat">
+          <small>Instructors</small>
+          <h2>48</h2>
+        </div>
+        <div class="stat">
+          <small>Security Events</small>
+          <h2>7</h2>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>User & Platform Management</h2>
+        <br>
+        <div class="lesson">
+          <span>👥 Manage Students</span>
+          <button class="small-btn" onclick="demoAction('Student management')">Manage</button>
+        </div>
+        <div class="lesson">
+          <span>👨‍🏫 Manage Instructors</span>
+          <button class="small-btn" onclick="demoAction('Instructor management')">Manage</button>
+        </div>
+        <div class="lesson">
+          <span>📚 Manage Courses</span>
+          <button class="small-btn" onclick="demoAction('Course management')">Manage</button>
+        </div>
+        <div class="lesson">
+          <span>📋 View Audit Logs</span>
+          <button class="small-btn" onclick="demoAction('Audit log viewer')">View</button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- INSTRUCTOR -->
+    <section class="page" id="instructor">
+
+      <div class="section">
+        <h2>👨‍🏫 Instructor Dashboard</h2>
+        <p style="color:#64748b">
+          Manage courses and assessments.
+        </p>
+      </div>
+
+      <div class="stats">
+
+        <div class="stat">
+          <small>Total Courses</small>
+          <h2>8</h2>
+        </div>
+
+        <div class="stat">
+          <small>Students</small>
+          <h2>342</h2>
+        </div>
+
+        <div class="stat">
+          <small>Assessments</small>
+          <h2>24</h2>
+        </div>
+
+        <div class="stat">
+          <small>Average Score</small>
+          <h2>81%</h2>
+        </div>
+
+      </div>
+
+      <div class="section">
+        <h2>Course Management</h2>
+        <br>
+
+        <div class="lesson">
+          <span>Cybersecurity Fundamentals</span>
+          <button class="small-btn">Manage</button>
+        </div>
+
+        <div class="lesson">
+          <span>Web Development</span>
+          <button class="small-btn">Manage</button>
+        </div>
+
+        <button class="primary">
+          + Create New Course
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+</div>
+
+<script>
+
+let currentRole = "student";
+
+const titles = {
+  dashboard: {
+    student: "Student Dashboard",
+    instructor: "Instructor Dashboard",
+    admin: "Administrator Dashboard"
+  },
+  courses: "Courses & Learning",
+  quiz: "Assessment",
+  assistant: "AI Learning Assistant",
+  security: "Security Center",
+  instructor: "Instructor Dashboard",
+  admin: "Administrator Dashboard"
+};
+
+const allowedPages = {
+  student: ["dashboard", "courses", "quiz", "assistant", "security"],
+  instructor: ["dashboard", "courses", "security", "instructor"],
+  admin: ["dashboard", "courses", "security", "admin"]
+};
+
+function login() {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  if (!email) {
+    alert("Please enter an email address.");
+    return;
+  }
+
+  if (!password) {
+    alert("Please enter a password.");
+    return;
+  }
+
+  currentRole = document.getElementById("role").value;
+
+  document.getElementById("loginPage").style.display = "none";
+  document.getElementById("app").style.display = "block";
+
+  const roleName =
+    currentRole.charAt(0).toUpperCase() + currentRole.slice(1);
+
+  document.getElementById("userDisplay").innerHTML =
+    "👤 " + roleName;
+
+  // Show only the navigation allowed for the selected role.
+  document.getElementById("instructorNav").style.display =
+    currentRole === "instructor" ? "block" : "none";
+
+  document.getElementById("adminNav").style.display =
+    currentRole === "admin" ? "block" : "none";
+
+  // Assessment and AI Assistant are Student-only features.
+  document.getElementById("assessmentNav").style.display =
+    currentRole === "student" ? "block" : "none";
+
+  document.getElementById("assistantNav").style.display =
+    currentRole === "student" ? "block" : "none";
+
+  showPage("dashboard", document.querySelector('.nav-btn'));
+}
+
+function logout() {
+  document.getElementById("app").style.display = "none";
+  document.getElementById("loginPage").style.display = "flex";
+  document.getElementById("password").value = "";
+  currentRole = "student";
+}
+
+function showPage(page, button) {
+  // Defense-in-depth for the prototype UI: a role cannot open a page
+  // that is outside its allowed navigation. Real authorization must
+  // still be enforced by the backend/API.
+  if (!allowedPages[currentRole].includes(page)) {
+    alert("Access denied: this page is not available for your role.");
+    return;
+  }
+
+  document.querySelectorAll(".page").forEach(function(p) {
+    p.classList.remove("active");
+  });
+
+  document.getElementById(page).classList.add("active");
+
+  document.querySelectorAll(".nav-btn").forEach(function(btn) {
+    btn.classList.remove("active");
+  });
+
+  if (button) {
+    button.classList.add("active");
+  }
+
+  let title = titles[page];
+  if (page === "dashboard") {
+    title = titles.dashboard[currentRole];
+  }
+
+  document.getElementById("pageTitle").innerText = title || "LearnSphere";
+}
+
+function demoAction(name) {
+  alert(name + " opened in demo mode.");
+}
+
+function enroll(button) {
+
+  button.innerText = "Enrolled ✓";
+  button.classList.remove("green");
+  button.style.background = "#64748b";
+
+  alert("Successfully enrolled in the course!");
+}
+
+function submitQuiz() {
+
+  let score = 0;
+
+  document.querySelectorAll(
+    'input[type="radio"][value="correct"]:checked'
+  ).forEach(function() {
+    score++;
+  });
+
+  const percentage = Math.round((score / 3) * 100);
+
+  document.getElementById("quizResult").innerHTML = `
+    <div class="result">
+      <h2>Assessment Submitted ✅</h2>
+      <p style="margin:12px">
+        Your score: <strong>${score}/3 (${percentage}%)</strong>
+      </p>
+      <span class="badge">Result Generated</span>
+    </div>
+  `;
+}
+
+function askAI() {
+
+  const input = document.getElementById("question");
+  const question = input.value.trim();
+
+  if (!question) return;
+
+  const chat = document.getElementById("chat");
+
+  chat.innerHTML += `
+    <div class="message me">${question}</div>
+  `;
+
+  let answer =
+    "Authentication verifies a user's identity before granting access. " +
+    "In a secure learning platform, authentication should be combined " +
+    "with authorization and role-based access control.";
+
+  if (question.toLowerCase().includes("encryption")) {
+    answer =
+      "Encryption converts readable information into protected ciphertext. " +
+      "It helps protect sensitive learning data while it is transmitted or stored.";
+  }
+
+  if (question.toLowerCase().includes("quiz")) {
+    answer =
+      "A quiz allows instructors to assess learning outcomes. " +
+      "LearnSphere records the submitted answers and generates a result.";
+  }
+
+  chat.innerHTML += `
+    <div class="message bot">${answer}</div>
+  `;
+
+  input.value = "";
+  chat.scrollTop = chat.scrollHeight;
+}
+
+</script>
+
+</body>
+</html>
