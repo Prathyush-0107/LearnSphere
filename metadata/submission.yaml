@@ -4,8 +4,8 @@
 version: "1.0"
 
 submission:
-  team_id: ""
-  repository: ""
-  commit_sha: ""
+  team_id: "5"
+  repository: "https://github.com/Prathyush-0107/LearnSphere"
+  commit_sha: "f81c664"
   deployment_url: ""
   submitted_at: ""
